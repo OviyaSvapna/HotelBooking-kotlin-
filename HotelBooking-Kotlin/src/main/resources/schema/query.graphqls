@@ -1,0 +1,90 @@
+type Query
+{
+    getUserId(userId: ID): Boolean
+    getRoomId(roomId: ID): Boolean
+    getHotelId(hotelId: ID): Boolean
+    getReservationId(reservationId: ID): Boolean
+    getAllRooms: [RoomResponse_All]
+    getRoomsByHotelId(hotelId: ID): [RoomResponse]
+    getRoomsByHotelName(hotelName: String): [RoomHotelDAO]
+
+}
+type Mutation
+{
+    createUser(createUserRequest: CreateUserRequest): String
+    createHotel(createHotelRequest: CreateHotelRequest): String
+    createRoom(createRoomRequest: CreateRoomRequest): String
+    bookRoom(inputReservationRequest: InputReservationRequest): [String]
+    cancelRoom(cancelRoomRequest: CancelRoomRequest): String
+}
+input CreateUserRequest
+{
+    userName: String
+    firstName: String
+    lastName: String
+    email: String
+    accountType: String
+    mobileNo: String
+}
+
+input CreateHotelRequest
+{
+    hotelId: ID
+    hotelName: String
+    address: String
+    city: String
+    state: String
+
+}
+
+input CreateRoomRequest
+{
+    roomNo: Int
+    roomPrice: String
+    roomType: String
+    hotelId: ID
+
+}
+
+input InputReservationRequest
+{
+    hotelId: ID
+    userId: ID
+    rooms: [BookRoom]
+}
+
+input BookRoom
+{
+
+    roomId: ID
+    fromDate: String
+    toDate: String
+}
+
+input   CancelRoomRequest
+{
+    reservationId : ID
+    roomId : ID
+}
+
+type RoomResponse
+{
+    roomNo: Int
+    roomPrice: String
+    roomType: String
+}
+
+type RoomResponse_All
+{
+    hotelName : String
+    roomNo: Int
+    roomPrice: String
+    roomType: String
+}
+
+type RoomHotelDAO
+{
+    roomNo: Int
+    roomPrice: String
+    roomType: String
+}
